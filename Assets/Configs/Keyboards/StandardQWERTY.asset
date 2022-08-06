@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfb6da1c7b49d742807d77ce49d39ff, type: 3}
+  m_Name: StandardQWERTY
+  m_EditorClassIdentifier: 
+  keyPrefab: {fileID: 5004579070516549798, guid: a6c082c5814b13a4aa1c260dcaa4ae14, type: 3}
+  firstRowKeys:
+  - '`'
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 0
+  - '-'
+  - =
+  secondRowKeys:
+  - Q
+  - W
+  - E
+  - R
+  - T
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - '['
+  - ']'
+  - \
+  thirdRowKeys:
+  - 
+  - A
+  - S
+  - D
+  - F
+  - G
+  - H
+  - J
+  - K
+  - L
+  - ;
+  - ''''
+  - 
+  fourthRowKeys:
+  - 
+  - Z
+  - X
+  - C
+  - V
+  - B
+  - N
+  - M
+  - ','
+  - .
+  - /
+  - 
+  - 
