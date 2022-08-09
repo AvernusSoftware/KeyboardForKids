@@ -2,10 +2,13 @@ using TMPro;
 using UnityEngine;
 
 public class Keyboard : MonoBehaviour {
-    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI scoreValueText;
+    [SerializeField] private TextMeshProUGUI scoreInRowValueText;
     [SerializeField] private TextMeshProUGUI nextKeyText;
 
-    private int score;
+    private int numberOfGeneratedLetters;
+    private int scoreOverall;
+    private int scoreInRow;
     private string currentKey;
     private bool wasKeyPress;
 
@@ -36,15 +39,22 @@ public class Keyboard : MonoBehaviour {
             GenerateNextKey();
             return;
         }
-        if (!isCurrentKeyPress) {
+        
+        if (!isCurrentKeyPress || wasKeyPress) {
             return;
         }
 
+        numberOfGeneratedLetters++;
         wasKeyPress = true;
         bool isCorrectKey = Input.GetKeyDown(currentKey);
         if (isCorrectKey) {
-            score++;
-            scoreText.text = score.ToString();
+            scoreOverall++;
+            scoreInRow++;
+        } else {
+            scoreInRow = 0;
         }
+
+        scoreValueText.text = $"{scoreOverall} / {numberOfGeneratedLetters}";
+        scoreInRowValueText.text = scoreInRow.ToString();
     }
 }
