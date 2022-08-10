@@ -4,13 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Keyboard : MonoBehaviour {
-    [SerializeField] private TextMeshProUGUI scoreValueText;
-    [SerializeField] private TextMeshProUGUI scoreInRowValueText;
     [SerializeField] private TextMeshProUGUI nextKeyText;
 
-    private int numberOfGeneratedLetters;
-    private int scoreOverall;
-    private int scoreInRow;
+    private Score score;
     private string currentKey;
     private bool wasKeyPress;
 
@@ -23,12 +19,17 @@ public class Keyboard : MonoBehaviour {
     private Dictionary<string, Image> keysObjects;
 
     private void Start() {
+        ConfigureObjects();
         FindKeysObjects();
         GenerateNextKey();
     }
 
     private void Update() {
         CheckKeyboard();
+    }
+
+    private void ConfigureObjects() {
+        score = FindObjectOfType<Score>();
     }
 
     private void FindKeysObjects() {
@@ -71,17 +72,12 @@ public class Keyboard : MonoBehaviour {
             return;
         }
 
-        numberOfGeneratedLetters++;
         wasKeyPress = true;
         bool isCorrectKey = Input.GetKeyDown(currentKey);
         if (isCorrectKey) {
-            scoreOverall++;
-            scoreInRow++;
+            score.GoodAnswer();
         } else {
-            scoreInRow = 0;
+            score.BadAnswer();
         }
-
-        scoreValueText.text = $"{scoreOverall} / {numberOfGeneratedLetters}";
-        scoreInRowValueText.text = scoreInRow.ToString();
     }
 }
