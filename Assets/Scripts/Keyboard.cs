@@ -16,7 +16,7 @@ public class Keyboard : MonoBehaviour {
         "z", "x", "c", "v", "b", "n", "m"
     };
 
-    private Dictionary<string, Image> keysObjects;
+    private Dictionary<string, KeyObject> keysObjects;
 
     private void Start() {
         ConfigureObjects();
@@ -33,31 +33,33 @@ public class Keyboard : MonoBehaviour {
     }
 
     private void FindKeysObjects() {
-        keysObjects = new Dictionary<string, Image>();
+        keysObjects = new Dictionary<string, KeyObject>();
         GameObject[] keysGameObjects = GameObject.FindGameObjectsWithTag("Key");
 
         foreach (GameObject keyGameObject in keysGameObjects) {
-            string name = keyGameObject.name;
-            Transform keyTransform = keyGameObject.transform;
-            Transform imageTransform = keyTransform.Find("Image");
-            GameObject imageGameObject = imageTransform.gameObject;
-            Image image = imageGameObject.GetComponent<Image>();
+            AddKeyObject(keyGameObject);
+        }
+    }
 
-            if (name != string.Empty && !keysObjects.ContainsKey(name)) {
-                keysObjects.Add(name.ToLower(), image);
-            }
+    private void AddKeyObject(GameObject keyGameObject) {
+        string name = keyGameObject.name;
+        KeyObject keyObject = keyGameObject.GetComponent<KeyObject>();
+        if (name != string.Empty && !keysObjects.ContainsKey(name)) {
+            keysObjects.Add(name.ToLower(), keyObject);
         }
     }
 
     private void GenerateNextKey() {
         if (!string.IsNullOrEmpty(currentKey)) {
-            keysObjects[currentKey].color = Color.white;
+            Image PreviousImageComponent = keysObjects[currentKey].ImageComponent;
+            PreviousImageComponent.color = Color.white;
         }
 
         int randomNumber = Random.Range(0, keys.Length);
         currentKey = keys[randomNumber];
         nextKeyText.text = currentKey;
-        keysObjects[currentKey].color = Color.yellow;
+        Image currentImageComponent = keysObjects[currentKey].ImageComponent;
+        currentImageComponent.color = Color.yellow;
     }
 
     private void CheckKeyboard() {

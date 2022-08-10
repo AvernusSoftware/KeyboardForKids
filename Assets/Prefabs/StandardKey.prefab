@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f64d0f96fd46eb840a0863c0d02104d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graphics: {fileID: 8170224430124904660}
+  imageComponent: {fileID: 8170224430124904660}
   textComponent: {fileID: 2553018675271012936}
 --- !u!1 &6410354334133897609
 GameObject:
