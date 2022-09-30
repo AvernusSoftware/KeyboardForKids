@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Keyboard config", menuName = "Keyboard config")]
+[CreateAssetMenu(fileName = "Keyboard config", menuName = "Keyboard config", order = 2000)]
 public class KeyboardConfig : ScriptableObject {
 
     [Header("Prefabs")]
