@@ -63,7 +63,7 @@ public class Keyboard : MonoBehaviour {
     }
 
     private void CheckKeyboard() {
-        bool isCurrentKeyPress = Input.anyKey;
+        bool isCurrentKeyPress = IsCurrentKeyPress();
         if (!isCurrentKeyPress && wasKeyPress) {
             wasKeyPress = false;
             GenerateNextKey();
@@ -81,5 +81,9 @@ public class Keyboard : MonoBehaviour {
         } else {
             score.BadAnswer();
         }
+    }
+
+    private static bool IsCurrentKeyPress() {
+        return Input.anyKeyDown && !(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2));
     }
 }
