@@ -16,7 +16,7 @@ public class Keyboard : MonoBehaviour {
         "z", "x", "c", "v", "b", "n", "m"
     };
 
-    private Dictionary<string, KeyObject> keysObjects;
+    private Dictionary<string, Key> keysObjects;
 
     private void Start() {
         ConfigureObjects();
@@ -33,7 +33,7 @@ public class Keyboard : MonoBehaviour {
     }
 
     private void FindKeysObjects() {
-        keysObjects = new Dictionary<string, KeyObject>();
+        keysObjects = new Dictionary<string, Key>();
         GameObject[] keysGameObjects = GameObject.FindGameObjectsWithTag("Key");
 
         foreach (GameObject keyGameObject in keysGameObjects) {
@@ -43,7 +43,7 @@ public class Keyboard : MonoBehaviour {
 
     private void AddKeyObject(GameObject keyGameObject) {
         string name = keyGameObject.name;
-        KeyObject keyObject = keyGameObject.GetComponent<KeyObject>();
+        Key keyObject = keyGameObject.GetComponent<Key>();
         if (name != string.Empty && !keysObjects.ContainsKey(name)) {
             keysObjects.Add(name.ToLower(), keyObject);
         }
