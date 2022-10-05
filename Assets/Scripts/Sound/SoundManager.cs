@@ -5,31 +5,23 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour {
 
-    [HideInInspector]
-    public SoundManager soundManager;
+    [SerializeField]
+    private List<KeyboardSoundsConfig> keyboardSoundsConfigs;
 
+    private LanguageManager LanguageManager { get; set; }
+    private KeyboardSoundsConfig KeyboardSoundsConfig { get; set; }
     private GameObject SoundObjectPrefab { get; set; }
     private Dictionary<AudioClip, float> SoundHistory { get; set; }
 
-    public void Awake() {
-        SoundObjectPrefab = (GameObject)Resources.Load("Prefabs/SoundObject", typeof(GameObject));
-
-        if (soundManager == null) {
-            soundManager = this;
-        } else if (soundManager != this) {
-            Destroy(gameObject);
-        }
-
+    public void Start() {
+        SetupObjects();
+        SetupKeyboardSoundConfig();
         DontDestroyOnLoad(gameObject);
-
-        SoundHistory = new Dictionary<AudioClip, float>();
     }
 
     public void Update() {
         UpdateSoundHistory();
     }
-
-
 
     public void AddNewSound(AudioClip audioClip, Vector3 position, float fadeTime = 0) {
         if (audioClip == null) {
@@ -58,6 +50,17 @@ public class SoundManager : MonoBehaviour {
         foreach (AudioSource audioSource in audioSourcesStoped) {
             audioSource.Play();
         }
+    }
+
+    private void SetupObjects() {
+        LanguageManager = FindObjectOfType<LanguageManager>();
+        SoundObjectPrefab = (GameObject)Resources.Load("Prefabs/SoundObject", typeof(GameObject));
+        SoundHistory = new Dictionary<AudioClip, float>();
+    }
+
+    private void SetupKeyboardSoundConfig() {
+        LanguageName currentLanguageName = LanguageManager.CurrentLanguageName;
+        KeyboardSoundsConfig = keyboardSoundsConfigs.FirstOrDefault(x => x.Language == currentLanguageName);
     }
 
     private void UpdateSoundHistory() {

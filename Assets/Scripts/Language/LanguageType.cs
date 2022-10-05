@@ -1,4 +1,5 @@
-﻿public enum LanguageType {
-    english,
-    polish
+﻿public enum LanguageName {
+    unknown = -1,
+    English,
+    polski
 }

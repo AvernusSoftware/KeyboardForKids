@@ -10,34 +10,32 @@ public class LanguageManager : MonoBehaviour {
     [SerializeField]
     private TextAsset languageFileContent;
 
-    [SerializeField]
-    private List<KeyboardSoundsConfig> keyboardSoundsConfig;
+    public LanguageName CurrentLanguageName { get; private set; }
 
-    private Dictionary<string, Dictionary<string, string>> Languages { get; set; }
-    private List<string> LanguagesIdentifier { get; set; }
+    private Dictionary<LanguageName, Dictionary<string, string>> Languages { get; set; }
+    private List<LanguageName> LanguageNames { get; set; }
     private Dictionary<string, string> CurrentLanguage { get; set; }
 
-    private string CurrentLanguageIdentifier { get; set; }
-
-    private const string defaultLanguage = "English";
+    private const LanguageName defaultLanguage = LanguageName.English;
     private const string languageIdentifier = "languageIdentifier";
     private const string twoletterisolanguagename = "twoletterisolanguagename";
     private const string noTranslationFound = "No translation definition for [{0}].";
 
     public void Start() {
         LoadLanguages();
-        SetLanguage("?");
+        SetLanguage(LanguageName.unknown);
     }
 
-    public void SetLanguage(string languageIdentifier) {
-        if (languageIdentifier == "?") {
-            CurrentLanguageIdentifier = DetectLanguage();
-            CurrentLanguage = Languages[CurrentLanguageIdentifier];
-        } else if (Languages.ContainsKey(CurrentLanguageIdentifier)) {
-            CurrentLanguage = Languages[CurrentLanguageIdentifier];
+    public void SetLanguage(LanguageName languageName) {
+        if (languageName == LanguageName.unknown) {
+            CurrentLanguageName = DetectLanguage();
+        } else if (Languages.ContainsKey(CurrentLanguageName)) {
+            CurrentLanguageName = languageName;
         } else {
-            CurrentLanguage = Languages[defaultLanguage];
+            CurrentLanguageName = defaultLanguage;
         }
+
+        CurrentLanguage = Languages[CurrentLanguageName];
     }
 
     public string GetTranslation(string translationIdentifier) {
@@ -48,14 +46,19 @@ public class LanguageManager : MonoBehaviour {
         return translationWithVariables;
     }
 
-    public List<string> GetAllLanguages() {
-        return LanguagesIdentifier;
+    public List<LanguageName> GetAllLanguagesTypes() {
+        return LanguageNames;
     }
 
-    public string DetectLanguage() {
+    public LanguageName DetectLanguage() {
         CultureInfo cultureInfo = CultureInfo.InstalledUICulture;
-        string systemLanguageIdentifier = Languages.FirstOrDefault(x => x.Value[twoletterisolanguagename] == cultureInfo.TwoLetterISOLanguageName).Key;
-        return systemLanguageIdentifier ?? defaultLanguage;
+        KeyValuePair<LanguageName, Dictionary<string, string>> result = Languages.FirstOrDefault(x => x.Value[twoletterisolanguagename] == cultureInfo.TwoLetterISOLanguageName);
+
+        if (result.Equals(default(KeyValuePair<LanguageName, Dictionary<string, string>>))) {
+            return defaultLanguage;
+        }
+
+        return result.Key;
     }
 
     public string ReplaceVariables(string translation) {
@@ -81,8 +84,8 @@ public class LanguageManager : MonoBehaviour {
     }
 
     private void LoadLanguages() {
-        Languages = new Dictionary<string, Dictionary<string, string>>();
-        LanguagesIdentifier = new List<string>();
+        Languages = new Dictionary<LanguageName, Dictionary<string, string>>();
+        LanguageNames = new List<LanguageName>();
 
         foreach (string line in languageFileContent.text.Split('\n')) {
             LoadRecord(line);
@@ -92,7 +95,7 @@ public class LanguageManager : MonoBehaviour {
     private void LoadRecord(string line) {
         string[] values = line.Split(';');
 
-        if (LanguagesIdentifier.Count == 0) {
+        if (LanguageNames.Count == 0) {
             AddLanguagesIdentifier(values);
         } else {
             AddTranslationForLanguages(values);
@@ -102,15 +105,16 @@ public class LanguageManager : MonoBehaviour {
     private void AddLanguagesIdentifier(string[] identifiers) {
         for (int i = 1; i < identifiers.Length; i++) {
             string identifier = identifiers[i].Trim();
-            LanguagesIdentifier.Add(identifier);
-            Languages.Add(identifier, new Dictionary<string, string>() { { languageIdentifier, identifier } });
+            LanguageName languageType = (LanguageName)Enum.Parse(typeof(LanguageName), identifier);
+            LanguageNames.Add(languageType);
+            Languages.Add(languageType, new Dictionary<string, string>() { { languageIdentifier, identifier } });
         }
     }
 
     private void AddTranslationForLanguages(string[] translationValues) {
         string translationIdentifier = translationValues[0];
-        for (int i = 0; i < LanguagesIdentifier.Count; i++) {
-            string languageIdentifier = LanguagesIdentifier[i];
+        for (int i = 0; i < LanguageNames.Count; i++) {
+            LanguageName languageIdentifier = LanguageNames[i];
             string translationValue = translationValues[i + 1].Trim();
             Languages[languageIdentifier].Add(translationIdentifier, translationValue);
         }

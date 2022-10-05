@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class KeyboardSoundConfig : MonoBehaviour {
-    public LanguageType languageType;
+    public LanguageName languageType;
     public KeyboardSoundsConfig keyboardSoundsConfig;
 
     public KeyboardSoundConfig(KeyboardSoundsConfig keyboardSoundsConfig) {

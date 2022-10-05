@@ -13,6 +13,7 @@ public class Score : MonoBehaviour {
     private int scoreOverall;
     private int scoreInRow;
 
+    //todo: need to change to using SoundManager
     private void Start() {
         audioSource = GetComponent<AudioSource>();
     }

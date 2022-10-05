@@ -4,7 +4,7 @@ using UnityEngine;
 public class KeyboardSoundsConfig : ScriptableObject {
 
     [SerializeField]
-    private LanguageType language;
+    private LanguageName language;
 
     [SerializeField]
     private LetterSoundConfig[] letterSounds = new LetterSoundConfig[26];
@@ -18,4 +18,6 @@ public class KeyboardSoundsConfig : ScriptableObject {
             letterSounds.SetValue(new LetterSoundConfig(key.ToString()), i);
         }
     }
+
+    public LanguageName Language { get => language; }
 }
