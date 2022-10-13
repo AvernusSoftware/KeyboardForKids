@@ -6,14 +6,12 @@ public class MusicManager : MonoBehaviour {
     [HideInInspector]
     public MusicManager musicManager;
 
-    [Header("Soundtrack")]
     [SerializeField]
     private List<AudioClip> musicList;
 
     [SerializeField]
     private int musicBuforSize;
 
-    [Header("FadeIn / FadeOut time")]
     [SerializeField]
     private float fadeInTime;
 
@@ -31,7 +29,7 @@ public class MusicManager : MonoBehaviour {
 
     public void Awake() {
         AudioSource = GetComponent<AudioSource>();
-        MusicVolume = 0.7f;
+        MusicVolume = 0.3f;
 
         if (musicManager == null) {
             musicManager = this;

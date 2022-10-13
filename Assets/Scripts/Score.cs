@@ -8,14 +8,14 @@ public class Score : MonoBehaviour {
     [SerializeField] private AudioClip goodAnswerSound;
     [SerializeField] private AudioClip badAnswerSound;
 
-    private AudioSource audioSource;
+    private SoundManager SoundManager { get; set; }
+
     private int numberOfAttemps;
     private int scoreOverall;
     private int scoreInRow;
 
-    //todo: need to change to using SoundManager
     private void Start() {
-        audioSource = GetComponent<AudioSource>();
+        SoundManager = FindObjectOfType<SoundManager>();
     }
 
     internal void GoodAnswer() {
@@ -23,16 +23,16 @@ public class Score : MonoBehaviour {
         scoreOverall++;
         scoreInRow++;
         RefreshScoreText();
-        audioSource.clip = goodAnswerSound;
-        audioSource.Play();
+        Sound sound = new(goodAnswerSound, SoundType.effects);
+        SoundManager.AddNewSound(sound);
     }
 
     internal void BadAnswer() {
         numberOfAttemps++;
         scoreInRow = 0;
         RefreshScoreText();
-        audioSource.clip = badAnswerSound;
-        audioSource.Play();
+        Sound sound = new(badAnswerSound, SoundType.effects);
+        SoundManager.AddNewSound(sound);
     }
 
     private void RefreshScoreText() {

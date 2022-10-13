@@ -6,11 +6,13 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour {
 
     [SerializeField]
+    private GameObject soundObjectPrefab;
+
+    [SerializeField]
     private List<KeyboardSoundsConfig> keyboardSoundsConfigs;
 
     private LanguageManager LanguageManager { get; set; }
     private KeyboardSoundsConfig KeyboardSoundsConfig { get; set; }
-    private GameObject SoundObjectPrefab { get; set; }
     private Dictionary<AudioClip, float> SoundHistory { get; set; }
 
     public void Start() {
@@ -23,7 +25,8 @@ public class SoundManager : MonoBehaviour {
         UpdateSoundHistory();
     }
 
-    public void AddNewSound(AudioClip audioClip, Vector3 position, float fadeTime = 0) {
+    public void AddNewSound(Sound sound) {
+        AudioClip audioClip = sound.AudioClip;
         if (audioClip == null) {
             return;
         }
@@ -32,8 +35,19 @@ public class SoundManager : MonoBehaviour {
             SoundHistory.Add(audioClip, 0);
         }
 
-        StartCoroutine(CreateNewSound(SoundHistory[audioClip], audioClip, position, audioClip.length, fadeTime));
+        StartCoroutine(CreateNewSound(sound));
         SoundHistory[audioClip] += 0.1f;
+    }
+
+    public void PlayVoice(string key) {
+        LetterSoundConfig letterSoundConfig = KeyboardSoundsConfig.GetLetterConfig(key);
+        if (letterSoundConfig == null) {
+            return;
+        }
+
+        AudioClip audioClip = KeyboardSoundsConfig.AudioClip;
+        Sound sound = new(audioClip, SoundType.voice, Vector3.zero, letterSoundConfig.Time, letterSoundConfig.Length);
+        AddNewSound(sound);
     }
 
     public void PauseSounds() {
@@ -54,7 +68,6 @@ public class SoundManager : MonoBehaviour {
 
     private void SetupObjects() {
         LanguageManager = FindObjectOfType<LanguageManager>();
-        SoundObjectPrefab = (GameObject)Resources.Load("Prefabs/SoundObject", typeof(GameObject));
         SoundHistory = new Dictionary<AudioClip, float>();
     }
 
@@ -72,37 +85,28 @@ public class SoundManager : MonoBehaviour {
         }
     }
 
-    private IEnumerator CreateNewSound(float time, AudioClip audioClip, Vector3 position, float length, float fadeTime) {
+    private IEnumerator CreateNewSound(Sound sound) {
         yield return new WaitForSeconds(0);
 
-        GameObject soundGameObject = Instantiate(SoundObjectPrefab, Vector3.zero, Quaternion.identity);
+        GameObject soundGameObject = Instantiate(soundObjectPrefab, Vector3.zero, Quaternion.identity);
         Transform soundTransform = soundGameObject.transform;
-        soundTransform.position = position;
+        soundTransform.position = sound.PositionOnScene;
 
         AudioSource audioSource = soundGameObject.GetComponent<AudioSource>();
-        audioSource.clip = audioClip;
         audioSource.ignoreListenerPause = true;
+        audioSource.clip = sound.AudioClip;
+        audioSource.time = sound.StartTime;
+        audioSource.volume = GetVolume(sound.SoundType);
         audioSource.Play();
 
-        if (fadeTime > 0) {
-            length = length >= fadeTime ? length : fadeTime;
-            StartCoroutine(FadeSound(audioSource, length - fadeTime, fadeTime));
-        }
-
-        Destroy(soundGameObject, length);
+        Destroy(soundGameObject, sound.Length);
     }
 
-    private IEnumerator FadeSound(AudioSource audioSource, float timeToStartFade, float fadeTime) {
-        yield return new WaitForSeconds(timeToStartFade);
-
-        float t = fadeTime;
-        while (t > 0) {
-            yield return null;
-            t -= Time.deltaTime;
-            if (audioSource != null) {
-                audioSource.volume = (t / fadeTime);
-            }
+    private float GetVolume(SoundType soundType) {
+        if (soundType == SoundType.effects) {
+            return 0.4f;
+        } else {
+            return 1f;
         }
-        yield break;
     }
 }

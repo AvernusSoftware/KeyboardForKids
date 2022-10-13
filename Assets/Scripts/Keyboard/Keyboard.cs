@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class Keyboard : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI nextKeyText;
 
-    private Score score;
+    private Score Score { get; set; }
+    private SoundManager SoundManager { get; set; }
+
     private string currentKey;
     private bool wasKeyPress;
 
@@ -29,7 +31,8 @@ public class Keyboard : MonoBehaviour {
     }
 
     private void ConfigureObjects() {
-        score = FindObjectOfType<Score>();
+        Score = FindObjectOfType<Score>();
+        SoundManager = FindObjectOfType<SoundManager>();
     }
 
     private void FindKeysObjects() {
@@ -60,6 +63,7 @@ public class Keyboard : MonoBehaviour {
         nextKeyText.text = currentKey;
         Image currentImageComponent = keysObjects[currentKey].ImageComponent;
         currentImageComponent.color = Color.yellow;
+        SoundManager.PlayVoice(currentKey);
     }
 
     private void CheckKeyboard() {
@@ -77,9 +81,9 @@ public class Keyboard : MonoBehaviour {
         wasKeyPress = true;
         bool isCorrectKey = Input.GetKeyDown(currentKey);
         if (isCorrectKey) {
-            score.GoodAnswer();
+            Score.GoodAnswer();
         } else {
-            score.BadAnswer();
+            Score.BadAnswer();
         }
     }
 

@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9088b32ee090ce4fa1d71b756dc4c5c, type: 3}
+  m_Name: KeyboardSoundsConfigPl
+  m_EditorClassIdentifier: 
+  language: 1
+  audioClip: {fileID: 8300000, guid: 3a7f6eb0c36ced246ae28da79d081b8d, type: 3}
+  letterSounds:
+  - letter: a
+    time: 1.15
+    length: 1
+  - letter: b
+    time: 2.35
+    length: 1
+  - letter: c
+    time: 3.75
+    length: 1
+  - letter: d
+    time: 5.1
+    length: 1
+  - letter: e
+    time: 6.4
+    length: 1
+  - letter: f
+    time: 7.7
+    length: 1
+  - letter: g
+    time: 9.15
+    length: 1
+  - letter: h
+    time: 10.55
+    length: 1
+  - letter: i
+    time: 11.9
+    length: 1
+  - letter: j
+    time: 13.2
+    length: 1
+  - letter: k
+    time: 14.7
+    length: 1
+  - letter: l
+    time: 16
+    length: 1
+  - letter: m
+    time: 17.3
+    length: 1
+  - letter: n
+    time: 18.55
+    length: 1
+  - letter: o
+    time: 19.8
+    length: 1
+  - letter: p
+    time: 21.05
+    length: 1
+  - letter: q
+    time: 22.3
+    length: 1
+  - letter: r
+    time: 23.55
+    length: 1
+  - letter: s
+    time: 24.8
+    length: 1
+  - letter: t
+    time: 26.25
+    length: 1
+  - letter: u
+    time: 27.45
+    length: 1
+  - letter: v
+    time: 28.65
+    length: 1
+  - letter: w
+    time: 30.1
+    length: 1
+  - letter: x
+    time: 31.4
+    length: 1
+  - letter: y
+    time: 32.85
+    length: 1
+  - letter: z
+    time: 34.4
+    length: 1
