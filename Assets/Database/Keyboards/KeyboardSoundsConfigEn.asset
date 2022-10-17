@@ -12,56 +12,84 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9088b32ee090ce4fa1d71b756dc4c5c, type: 3}
   m_Name: KeyboardSoundsConfigEn
   m_EditorClassIdentifier: 
+  language: 0
+  audioClip: {fileID: 8300000, guid: dcab9ea2a8b870d439056d8a78042a8c, type: 3}
   letterSounds:
   - letter: a
-    audio: {fileID: 0}
+    time: 1.1
+    length: 1
   - letter: b
-    audio: {fileID: 0}
+    time: 2.6
+    length: 1
   - letter: c
-    audio: {fileID: 0}
+    time: 4
+    length: 1
   - letter: d
-    audio: {fileID: 0}
+    time: 5.5
+    length: 1
   - letter: e
-    audio: {fileID: 0}
+    time: 6.9
+    length: 1
   - letter: f
-    audio: {fileID: 0}
+    time: 8.2
+    length: 1
   - letter: g
-    audio: {fileID: 0}
+    time: 9.7
+    length: 1
   - letter: h
-    audio: {fileID: 0}
+    time: 11.15
+    length: 1
   - letter: i
-    audio: {fileID: 0}
+    time: 12.65
+    length: 1
   - letter: j
-    audio: {fileID: 0}
+    time: 14.1
+    length: 1
   - letter: k
-    audio: {fileID: 0}
+    time: 15.5
+    length: 1
   - letter: l
-    audio: {fileID: 0}
+    time: 16.95
+    length: 1
   - letter: m
-    audio: {fileID: 0}
+    time: 18.25
+    length: 1
   - letter: n
-    audio: {fileID: 0}
+    time: 19.6
+    length: 1
   - letter: o
-    audio: {fileID: 0}
+    time: 20.95
+    length: 1
   - letter: p
-    audio: {fileID: 0}
+    time: 0
+    length: 0
   - letter: q
-    audio: {fileID: 0}
+    time: 0
+    length: 0
   - letter: r
-    audio: {fileID: 0}
+    time: 0
+    length: 0
   - letter: s
-    audio: {fileID: 0}
+    time: 0
+    length: 0
   - letter: t
-    audio: {fileID: 0}
+    time: 0
+    length: 0
   - letter: u
-    audio: {fileID: 0}
+    time: 0
+    length: 0
   - letter: v
-    audio: {fileID: 0}
+    time: 0
+    length: 0
   - letter: w
-    audio: {fileID: 0}
+    time: 0
+    length: 0
   - letter: x
-    audio: {fileID: 0}
+    time: 0
+    length: 0
   - letter: y
-    audio: {fileID: 0}
+    time: 0
+    length: 0
   - letter: z
-    audio: {fileID: 0}
+    time: 0
+    length: 0
