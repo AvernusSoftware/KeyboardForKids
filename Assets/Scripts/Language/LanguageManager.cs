@@ -4,14 +4,19 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LanguageManager : MonoBehaviour {
 
     [SerializeField]
     private TextAsset languageFileContent;
 
+    [SerializeField]
+    private Image flagImage;
+
     public LanguageName CurrentLanguageName { get; private set; }
 
+    private SoundManager SoundManager { get; set; }
     private Dictionary<LanguageName, Dictionary<string, string>> Languages { get; set; }
     private List<LanguageName> LanguageNames { get; set; }
     private Dictionary<string, string> CurrentLanguage { get; set; }
@@ -21,7 +26,8 @@ public class LanguageManager : MonoBehaviour {
     private const string twoletterisolanguagename = "twoletterisolanguagename";
     private const string noTranslationFound = "No translation definition for [{0}].";
 
-    public void Start() {
+    private void Start() {
+        SetupObjects();
         LoadLanguages();
         SetLanguage(LanguageName.unknown);
     }
@@ -36,6 +42,8 @@ public class LanguageManager : MonoBehaviour {
         }
 
         CurrentLanguage = Languages[CurrentLanguageName];
+        SoundManager.SetupKeyboardSoundConfig(CurrentLanguageName);
+        flagImage.sprite = SoundManager.KeyboardSoundsConfig.FlagGraphic;
     }
 
     public string GetTranslation(string translationIdentifier) {
@@ -48,6 +56,18 @@ public class LanguageManager : MonoBehaviour {
 
     public List<LanguageName> GetAllLanguagesTypes() {
         return LanguageNames;
+    }
+
+    public LanguageName GetNextLanguageName() {
+        LanguageName[] languagesNames = (LanguageName[])Enum.GetValues(typeof(LanguageName));
+        int i = Array.IndexOf(languagesNames, CurrentLanguageName);
+
+        do {
+            i = (i + 1) % languagesNames.Length;
+        }
+        while ((int)languagesNames[i] < 0);
+
+        return languagesNames[i];
     }
 
     public LanguageName DetectLanguage() {
@@ -81,6 +101,10 @@ public class LanguageManager : MonoBehaviour {
         translation = ReplaceVariables(translation);
 
         return translation;
+    }
+
+    private void SetupObjects() {
+        SoundManager = FindObjectOfType<SoundManager>();
     }
 
     private void LoadLanguages() {

@@ -10,6 +10,9 @@ public class KeyboardSoundsConfig : ScriptableObject {
     private AudioClip audioClip;
 
     [SerializeField]
+    private Sprite flagGraphic;
+
+    [SerializeField]
     private LetterSoundConfig[] letterSounds = new LetterSoundConfig[26];
 
     private readonly int asciiCodeLetterA = 97;
@@ -35,4 +38,5 @@ public class KeyboardSoundsConfig : ScriptableObject {
 
     public LanguageName Language { get => language; }
     public AudioClip AudioClip { get => audioClip; }
+    public Sprite FlagGraphic { get => flagGraphic; }
 }

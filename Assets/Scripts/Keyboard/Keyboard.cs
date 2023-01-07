@@ -28,6 +28,10 @@ public class Keyboard : MonoBehaviour {
 
     private void Update() {
         CheckKeyboard();
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Application.Quit();
+        }
     }
 
     private void ConfigureObjects() {

@@ -11,13 +11,12 @@ public class SoundManager : MonoBehaviour {
     [SerializeField]
     private List<KeyboardSoundsConfig> keyboardSoundsConfigs;
 
-    private LanguageManager LanguageManager { get; set; }
-    private KeyboardSoundsConfig KeyboardSoundsConfig { get; set; }
+    public KeyboardSoundsConfig KeyboardSoundsConfig { get; private set; }
+
     private Dictionary<AudioClip, float> SoundHistory { get; set; }
 
     public void Start() {
         SetupObjects();
-        SetupKeyboardSoundConfig();
         DontDestroyOnLoad(gameObject);
     }
 
@@ -66,14 +65,12 @@ public class SoundManager : MonoBehaviour {
         }
     }
 
-    private void SetupObjects() {
-        LanguageManager = FindObjectOfType<LanguageManager>();
-        SoundHistory = new Dictionary<AudioClip, float>();
+    public void SetupKeyboardSoundConfig(LanguageName currentLanguageName) {
+        KeyboardSoundsConfig = keyboardSoundsConfigs.FirstOrDefault(x => x.Language == currentLanguageName);
     }
 
-    private void SetupKeyboardSoundConfig() {
-        LanguageName currentLanguageName = LanguageManager.CurrentLanguageName;
-        KeyboardSoundsConfig = keyboardSoundsConfigs.FirstOrDefault(x => x.Language == currentLanguageName);
+    private void SetupObjects() {
+        SoundHistory = new Dictionary<AudioClip, float>();
     }
 
     private void UpdateSoundHistory() {
