@@ -88,7 +88,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.collab-proxy": {
-      "version": "1.17.6",
+      "version": "1.17.7",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -118,7 +118,7 @@
       }
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.16",
+      "version": "2.0.17",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -166,6 +166,16 @@
       "depth": 2,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.services.analytics": {
+      "version": "4.2.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.services.core": "1.4.0"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.services.core": {
