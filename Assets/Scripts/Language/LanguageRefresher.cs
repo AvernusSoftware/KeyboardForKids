@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class LanguageRefresher : MonoBehaviour {
+public class LanguageRefresher : MonoBehaviour, IPointerClickHandler {
     private LanguageManager LanguageManager { get; set; }
     private LanguageSetter[] LanguagesComponents { get; set; }
 
@@ -8,10 +9,8 @@ public class LanguageRefresher : MonoBehaviour {
         SetupManagers();
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) {
-            Refresh();
-        }
+    public void OnPointerClick(PointerEventData eventData) {
+        Refresh();
     }
 
     private void SetupManagers() {
