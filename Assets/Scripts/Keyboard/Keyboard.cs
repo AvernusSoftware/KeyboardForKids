@@ -64,7 +64,7 @@ public class Keyboard : MonoBehaviour {
 
         int randomNumber = Random.Range(0, keys.Length);
         currentKey = keys[randomNumber];
-        nextKeyText.text = currentKey;
+        nextKeyText.text = currentKey.ToUpper();
         Image currentImageComponent = keysObjects[currentKey].ImageComponent;
         currentImageComponent.color = Color.yellow;
         SoundManager.PlayVoice(currentKey);

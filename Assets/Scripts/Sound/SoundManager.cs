@@ -101,7 +101,7 @@ public class SoundManager : MonoBehaviour {
 
     private float GetVolume(SoundType soundType) {
         if (soundType == SoundType.effects) {
-            return 0.4f;
+            return 0.6f;
         } else {
             return 1f;
         }
