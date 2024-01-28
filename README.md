@@ -18,7 +18,7 @@ The ready-to-run application can be downloaded from https://avernussoftware.itch
 
 1. Download git project.
 2. Download and install the Unity Hub from https://unity.com/download.
-3. Run the Unity Hub, go to “Installs” tab and install Unity 2022.1.20f1 or newer.
+3. Run the Unity Hub, go to “Installs” tab and install Unity 2022.3.16f1 or newer.
 4. Go to “Projects” tab and open project.
 
 ## **Community**
